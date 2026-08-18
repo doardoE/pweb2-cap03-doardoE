@@ -9,13 +9,18 @@
 //   - A cada push, o autograder roda sozinho e mostra o resultado na aba "Actions".
 //
 // Ponto de partida (descomente e desenvolva):
-//
-// import http from 'node:http';
-//
-// const PORT = process.env.PORT || 3000;
-//
-// const server = http.createServer((req, res) => {
-//   // dica: use req.method, req.url e req.headers para decidir a resposta
-// });
-//
-// server.listen(PORT, () => console.log(`Servidor em http://localhost:${PORT}`));
+
+import http from 'node:http';
+
+const PORT = process.env.PORT || 3000;
+
+const server = http.createServer((req, res) => {
+  if (req.method === "GET" && req.url === "/") {
+    res.writeHead(200, { "Content-Type": "text" });
+    res.end("Olá, Mundo!");
+    return;
+  }
+
+});
+
+server.listen(PORT, () => console.log(`Servidor em http://localhost:${PORT}`));

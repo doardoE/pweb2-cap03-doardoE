@@ -50,6 +50,16 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    // 5
+    if (req.method === "PUT" && req.url.startsWith("/itens/")) {
+        const url_completa = req.url.split("/")
+        const id = url_completa.at(-1)
+
+        res.writeHead(200, {"Cntent-Type": "text/html"})
+        res.end(`Item ${id} atualizado`)
+        return;
+    }
+
     res.writeHead(404, { "Content-Type": "text/html" });
     res.end("Não Encontrado");
 });

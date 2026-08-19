@@ -107,6 +107,21 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    // 10
+    if (req.method === "GET" && req.url === "/secreto") {
+        const credencial = req.headers['x-senha']
+        
+        if (credencial && credencial === "1234") {
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.end("Acesso liberado");
+            return
+        }
+
+        res.writeHead(401, { "Content-Type": "text/html" });
+        res.end("Não autorizado");
+        return;
+    }
+
     res.writeHead(404, { "Content-Type": "text/html" });
     res.end("Não Encontrado");
 });

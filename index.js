@@ -34,7 +34,7 @@ const server = http.createServer(async (req, res) => {
         const url_completa = req.url.split('/')
         const nome = url_completa.at(-1)
         res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(`Olá, ${nome}`);
+        res.end(`Olá, ${nome}!`);
         return;
     }
 
@@ -50,7 +50,8 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
-
+    res.writeHead(404, { "Content-Type": "text/html" });
+    res.end("Não Encontrado");
 });
 
 server.listen(PORT, () => console.log(`Servidor em http://localhost:${PORT}`));

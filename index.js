@@ -60,6 +60,21 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    // 6
+    if (req.method === "DELETE" && req.url.startsWith("/itens/")) {
+        const id = req.url.split("/").at(-1)
+
+        if(!id || id === "itens") {
+            res.writeHead(400, {"Content-Type": "text/html"})
+            res.end("ID do item não informado");
+            return;
+        }
+
+        res.writeHead(204, {"Content-Type": "text/html"})
+        res.end()
+        return;
+    }
+
     res.writeHead(404, { "Content-Type": "text/html" });
     res.end("Não Encontrado");
 });

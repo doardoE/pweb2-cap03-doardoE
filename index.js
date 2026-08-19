@@ -89,6 +89,24 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    // 9
+    if (req.method === "GET" && req.url === "/agente") {
+        let response;
+        const agente = req.headers['user-agent']
+        
+        if (agente.includes("curl")) {
+            response = "Você é o cURL";
+        } else if (agente.includes("Chrome")) {
+            response = "Você é um navegador";
+        } else {
+            response = "Agente desconhecido";
+        }
+        
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(response);
+        return;
+    }
+
     res.writeHead(404, { "Content-Type": "text/html" });
     res.end("Não Encontrado");
 });

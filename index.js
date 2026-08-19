@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 const server = http.createServer((req, res) => {
     // 1
     if (req.method === "GET" && req.url === "/") {
-        res.writeHead(200, { "Content-Type": "text" });
+        res.writeHead(200, { "Content-Type": "text/html" });
         res.end("Olá, Mundo!");
         return;
     }
@@ -26,6 +26,15 @@ const server = http.createServer((req, res) => {
     if (req.method === "GET" && req.url === "/sobre") {
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end("<h1>Sobre</h1>");
+        return;
+    }
+
+    // 3
+    if (req.method === "GET" && req.url.startsWith("/saudacao/")) {
+        const url_completa = req.url.split('/')
+        const nome = url_completa.at(-1)
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(`Olá, ${nome}`);
         return;
     }
 

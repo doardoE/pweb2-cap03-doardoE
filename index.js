@@ -82,6 +82,13 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    // 8
+    if (req.method === "HEAD" && req.url === "/status") {
+        res.writeHead(200, { "X-Status": "ok" });
+        res.end();
+        return;
+    }
+
     res.writeHead(404, { "Content-Type": "text/html" });
     res.end("Não Encontrado");
 });

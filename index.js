@@ -14,7 +14,7 @@ import http from 'node:http';
 
 const PORT = process.env.PORT || 3000;
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
     // 1
     if (req.method === "GET" && req.url === "/") {
         res.writeHead(200, { "Content-Type": "text/html" });
@@ -35,6 +35,18 @@ const server = http.createServer((req, res) => {
         const nome = url_completa.at(-1)
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end(`Olá, ${nome}`);
+        return;
+    }
+
+    //4
+    if (req.method === "POST" && req.url === "/echo") {
+        let corpo = "";
+        for await (const chunk of req) {
+            corpo += chunk;
+        }
+        const contentType = req.headers["content-type"] || "text/html";
+        res.writeHead(200, { "Content-Type": contentType });
+        res.end(corpo);
         return;
     }
 
